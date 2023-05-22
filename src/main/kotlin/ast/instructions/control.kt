@@ -1,0 +1,28 @@
+package ast.instructions
+
+import ast.expressions.Expression
+import ast.expressions.Interval
+
+interface ControlStructure: Instruction
+
+data class Branch(override val expr: Expression, val body: List<Instruction>, val alternative: List<Instruction>): ControlStructure, IContainExpression {
+    override var parent: Instruction? = null
+    init {
+        body.forEach { it.parent = this }
+        alternative.forEach { it.parent = this }
+    }
+
+    override fun toString(): String =
+        "${indentation}if ($expr) \n${body.joinToString("\n")}\n$indentation" +
+            (if (alternative.isEmpty()) "" else " else \n${alternative.joinToString("\n")}\n$indentation") +
+            "endif"
+}
+
+data class Iteration(val interval: Interval, val iterator: String, val body: List<Instruction>): ControlStructure {
+    override var parent: Instruction? = null
+    init {
+        body.forEach { it.parent = this }
+    }
+
+    override fun toString(): String = "${indentation}for $iterator in $interval \n${body.joinToString("\n")}\n${indentation}endfor"
+}
