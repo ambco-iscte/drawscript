@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "1.8.20"
 }
 
-group = "iscte.ambco-JOAO.elp.drawscript"
+group = "iscte.ambco-jarcv.elp.drawscript"
 version = "0.1-SNAPSHOT"
 
 repositories {
