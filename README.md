@@ -8,6 +8,26 @@ This scripting language was developed as the final project for a [Programming La
 course as part of elective coursework for the [Bachelor's in Computer Engineering](https://www.iscte-iul.pt/curso/3/licenciatura-engenharia-informatica) at 
 [Iscte-IUL](https://www.iscte-iul.pt/).
 
+## Features
+- [x] **Manual creation of Abstract Syntax Tree**
+- [ ] **Semantic Validation**
+  - [x] Window dimension must be a (x,y) point
+  - [x] Window background colour must be an (r,g,b) colour
+  - [x] Conditional branches must use Boolean-expression guards
+  - [x] Constant references must reference previously-defined constant
+  - [x] Colour RGB values must be numeric and in \[0..255]
+  - [x] Point x,y coordinates must be numeric
+  - [x] Interval bounds must be numeric
+    - [x] Bounds must be in ascending order
+  - [x] Binary expressions follow operand-operator context-sensitive restrictions (e.g. can only add together numbers, cannot add a number to an interval, etc.)
+  - [ ] Variables can only be referenced in the scope of their definition (inside declaring loop)
+- [ ] **Parsing**
+- [ ] **Interpretation**
+  - [ ] Visualisation window instantiated correctly
+  - [ ] Figures drawn correctly
+  - [ ] **Runtime Validation**
+    - [ ] Variable changes cannot violate semantic restrictions
+
 ## Examples
 ### Generating a simple grid pattern
 ```

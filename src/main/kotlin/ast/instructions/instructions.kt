@@ -7,7 +7,7 @@ interface Instruction {
 }
 
 internal val Instruction.depth: Int
-    get() = 1 + (if (parent == null) 0 else (if (parent is ControlStructure) 0 else 1) + parent!!.depth)
+    get() = if (parent == null) 0 else (if (parent is ControlStructure) 0 else 1) + parent!!.depth
 
 internal val Instruction.indentation: String
     get() = "\t".repeat(depth)

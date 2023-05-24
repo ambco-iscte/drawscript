@@ -5,7 +5,7 @@ import ast.expressions.Interval
 
 interface ControlStructure: Instruction
 
-data class Branch(override val expr: Expression, val body: List<Instruction>, val alternative: List<Instruction>): ControlStructure, IContainExpression {
+data class Branch(override val expr: Expression, val body: List<Instruction>, val alternative: List<Instruction> = listOf()): ControlStructure, IContainExpression {
     override var parent: Instruction? = null
     init {
         body.forEach { it.parent = this }
