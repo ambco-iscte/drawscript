@@ -2,6 +2,7 @@ package ast.instructions
 
 import ast.expressions.Expression
 import ast.expressions.Interval
+import ast.expressions.VariableReference
 
 interface ControlStructure: Instruction
 
@@ -18,7 +19,7 @@ data class Branch(override val expr: Expression, val body: List<Instruction>, va
             "endif"
 }
 
-data class Iteration(val interval: Interval, val iterator: String, val body: List<Instruction>): ControlStructure {
+data class Iteration(val interval: Interval, val iterator: VariableReference, val body: List<Instruction>): ControlStructure {
     override var parent: Instruction? = null
     init {
         body.forEach { it.parent = this }

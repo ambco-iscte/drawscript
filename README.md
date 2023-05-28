@@ -38,22 +38,22 @@ BLACK: |0|
 WHITE: |255|
 GRAY: |128|
 ---
-dimension: N*SIDE + MARGIN*2 ~ N*SIDE + MARGIN*2
+dimension: (2,3)
 background: GRAY
 ---
 setlinecolor BLACK
-for l in [0,N[
-  for c in [0,N[
-    if (l + c) % 2 = 0
+for l in [0, N[ {
+  for c in [0, N[ {
+    if (l + c % 2 == 0) {
       setfillcolor WHITE
-    else
+    } else {
       setfillcolor BLACK
-    endif
-    square c * SIDE + MARGIN,l * SIDE + MARGIN SIDE
-  endfor
-endfor
-setlinecolor 0|0|255
-square MARGIN,MARGIN N*SIDE ~ N*SID
+    }
+    square (c * SIDE + MARGIN,l * SIDE + MARGIN), SIDE
+  }
+}
+setlinecolor |0|0|255|
+square (MARGIN,MARGIN), N * SIDE
 ```
 
 ## Credit

@@ -33,7 +33,7 @@ enum class BinaryOperator(private val symbol: String, val type: BinaryOperatorTy
 
     val isRelational: Boolean = type == BinaryOperatorType.RELATIONAL
 
-    fun apply(left: Expression, right: Expression): Expression = when (type) {
+    fun applySemantically(left: Expression, right: Expression): Expression = when (type) {
         BinaryOperatorType.ARITHMETIC ->
             if (left.referencesVariables() || right.referencesVariables()) BinaryExpression(left, this, right)
             else if (left is Number && right is Number) Number(arithmetic(left.value, right.value))
@@ -46,7 +46,7 @@ enum class BinaryOperator(private val symbol: String, val type: BinaryOperatorTy
             else throw UnsupportedOperationException("Non-number expressions can only be compared for equality!")
     }
 
-    private fun arithmetic(first: Int, second: Int): Int = when (this) {
+    internal fun arithmetic(first: Int, second: Int): Int = when (this) {
         ADD -> first + second
         SUB -> first - second
         MUL -> first * second
@@ -56,7 +56,7 @@ enum class BinaryOperator(private val symbol: String, val type: BinaryOperatorTy
         else -> throw UnsupportedOperationException("Unsupported operator for arithmetic operation: $this")
     }
 
-    private fun relational(first: Int, second: Int): Boolean = when (this) {
+    internal fun relational(first: Int, second: Int): Boolean = when (this) {
         LESS -> first < second
         GREATER -> first > second
         LEQ -> first <= second

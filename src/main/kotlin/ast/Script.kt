@@ -31,13 +31,13 @@ data class Script(
 
         // Validate dimension
         // TODO: test
-        val dim = simplify(dimension)
+        val dim = simplifySemantically(dimension)
         if (dim.getType() != ExpressionType.POINT)
             errors.add(InvalidReferenceType(listOf(ExpressionType.POINT), dim.getType(), dimension))
 
         // Validate background colour
         // TODO: test
-        val bg = simplify(backgroundColour)
+        val bg = simplifySemantically(backgroundColour)
         if (bg.getType() != ExpressionType.COLOUR)
             errors.add(InvalidReferenceType(listOf(ExpressionType.COLOUR), bg.getType(), backgroundColour))
 
@@ -72,14 +72,14 @@ data class Script(
      * Example: simplify("3 + 5") = "8"
      * @param expr The expression to simplify.
      */
-    private fun simplify(expr: Expression): Expression {
+    private fun simplifySemantically(expr: Expression): Expression {
         require(validate(expr).isEmpty()) { "Cannot solve non-validated expression!" }
         return when (expr) {
-            is ConstantReference -> simplify(constants[expr.identifier]!!)
-            is Colour -> Colour(simplify(expr.red), simplify(expr.green), simplify(expr.blue))
-            is Point -> Point(simplify(expr.x), simplify(expr.y))
-            is Interval -> Interval(simplify(expr.start), simplify(expr.end), expr.type)
-            is BinaryExpression -> expr.operator.apply(simplify(expr.left), simplify(expr.right))
+            is ConstantReference -> simplifySemantically(constants[expr.identifier]!!)
+            is Colour -> Colour(simplifySemantically(expr.red), simplifySemantically(expr.green), simplifySemantically(expr.blue))
+            is Point -> Point(simplifySemantically(expr.x), simplifySemantically(expr.y))
+            is Interval -> Interval(simplifySemantically(expr.start), simplifySemantically(expr.end), expr.type)
+            is BinaryExpression -> expr.operator.applySemantically(simplifySemantically(expr.left), simplifySemantically(expr.right))
             else -> expr
         }
     }
@@ -120,7 +120,7 @@ data class Script(
         is Interval -> {
             val errors = mutableListOf<SemanticError>()
             errors.addAll(validateAllIntegers(expr.start, expr.end))
-            if (errors.isEmpty() && (simplify(expr.start) as Number).value > (simplify(expr.end) as Number).value)
+            if (errors.isEmpty() && (simplifySemantically(expr.start) as Number).value > (simplifySemantically(expr.end) as Number).value)
                 errors.add(InvalidIntervalDefinition(expr)) // TODO: test
             errors
         }
@@ -149,9 +149,9 @@ data class Script(
 
             if (!colour.red.referencesVariables() && !colour.green.referencesVariables() && !colour.blue.referencesVariables()) {
                 // Check that the RGB values are all in [0, 255]
-                val r = simplify(colour.red) as Number // Can cast to Number because we asserted getType() == INTEGER
-                val g = simplify(colour.green) as Number
-                val b = simplify(colour.blue) as Number
+                val r = simplifySemantically(colour.red) as Number // Can cast to Number because we asserted getType() == INTEGER
+                val g = simplifySemantically(colour.green) as Number
+                val b = simplifySemantically(colour.blue) as Number
                 if (r.value !in 0..255 || g.value !in 0..255 || b.value !in 0..255)
                     errors.add(InvalidColorRGBValues(r.value, g.value, b.value, colour))
             }
