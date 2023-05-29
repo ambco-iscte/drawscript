@@ -55,6 +55,10 @@ setlinecolor |0|0|255|
 square (MARGIN,MARGIN), N * SIDE
 ```
 
+## Class Diagram
+As per the original project specifications, the figure below presents the class structure of the project.
+![](classdiagram.png)
+
 ## Credit
 Full credit for the basic specification of the library's requirements goes to Professor
 [André L. Santos](https://andre-santos-pt.github.io/), Assistant Professor at Iscte-IUL and coordinator of the course

@@ -11,7 +11,3 @@ internal val Instruction.depth: Int
 
 internal val Instruction.indentation: String
     get() = "\t".repeat(depth)
-
-interface IContainExpression {
-    val expr: Expression
-}

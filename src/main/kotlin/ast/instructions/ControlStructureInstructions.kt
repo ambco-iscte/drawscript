@@ -6,7 +6,7 @@ import ast.expressions.VariableReference
 
 interface ControlStructure: Instruction
 
-data class Branch(override val expr: Expression, val body: List<Instruction>, val alternative: List<Instruction> = listOf()): ControlStructure, IContainExpression {
+data class Branch(val expr: Expression, val body: List<Instruction>, val alternative: List<Instruction> = listOf()): ControlStructure {
     override var parent: Instruction? = null
     init {
         body.forEach { it.parent = this }
