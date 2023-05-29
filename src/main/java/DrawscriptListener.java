@@ -37,6 +37,26 @@ public interface DrawscriptListener extends ParseTreeListener {
 	 */
 	void exitParameters(DrawscriptParser.ParametersContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link DrawscriptParser#dimension}.
+	 * @param ctx the parse tree
+	 */
+	void enterDimension(DrawscriptParser.DimensionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DrawscriptParser#dimension}.
+	 * @param ctx the parse tree
+	 */
+	void exitDimension(DrawscriptParser.DimensionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DrawscriptParser#background}.
+	 * @param ctx the parse tree
+	 */
+	void enterBackground(DrawscriptParser.BackgroundContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DrawscriptParser#background}.
+	 * @param ctx the parse tree
+	 */
+	void exitBackground(DrawscriptParser.BackgroundContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link DrawscriptParser#definition}.
 	 * @param ctx the parse tree
 	 */
@@ -189,18 +209,6 @@ public interface DrawscriptListener extends ParseTreeListener {
 	 */
 	void exitIntervalExpression(DrawscriptParser.IntervalExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code binaryExpression}
-	 * labeled alternative in {@link DrawscriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinaryExpression(DrawscriptParser.BinaryExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code binaryExpression}
-	 * labeled alternative in {@link DrawscriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinaryExpression(DrawscriptParser.BinaryExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code pointExpression}
 	 * labeled alternative in {@link DrawscriptParser#expression}.
 	 * @param ctx the parse tree
@@ -248,6 +256,66 @@ public interface DrawscriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitColourExpression(DrawscriptParser.ColourExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code enclosedExpression}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnclosedExpression(DrawscriptParser.EnclosedExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code enclosedExpression}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnclosedExpression(DrawscriptParser.EnclosedExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code binaryExpressionAddSub}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryExpressionAddSub(DrawscriptParser.BinaryExpressionAddSubContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code binaryExpressionAddSub}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryExpressionAddSub(DrawscriptParser.BinaryExpressionAddSubContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code binaryExpressionMulDivMod}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryExpressionMulDivMod(DrawscriptParser.BinaryExpressionMulDivModContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code binaryExpressionMulDivMod}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryExpressionMulDivMod(DrawscriptParser.BinaryExpressionMulDivModContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code binaryExpressionPow}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryExpressionPow(DrawscriptParser.BinaryExpressionPowContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code binaryExpressionPow}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryExpressionPow(DrawscriptParser.BinaryExpressionPowContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code binaryExpressionRelational}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryExpressionRelational(DrawscriptParser.BinaryExpressionRelationalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code binaryExpressionRelational}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryExpressionRelational(DrawscriptParser.BinaryExpressionRelationalContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code booleanExpression}
 	 * labeled alternative in {@link DrawscriptParser#expression}.
@@ -301,15 +369,53 @@ public interface DrawscriptListener extends ParseTreeListener {
 	 */
 	void exitColour(DrawscriptParser.ColourContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DrawscriptParser#interval}.
+	 * Enter a parse tree produced by the {@code closedInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
 	 * @param ctx the parse tree
 	 */
-	void enterInterval(DrawscriptParser.IntervalContext ctx);
+	void enterClosedInterval(DrawscriptParser.ClosedIntervalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DrawscriptParser#interval}.
+	 * Exit a parse tree produced by the {@code closedInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
 	 * @param ctx the parse tree
 	 */
-	void exitInterval(DrawscriptParser.IntervalContext ctx);
+	void exitClosedInterval(DrawscriptParser.ClosedIntervalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code openInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpenInterval(DrawscriptParser.OpenIntervalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code openInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpenInterval(DrawscriptParser.OpenIntervalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code leftOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void enterLeftOpenInterval(DrawscriptParser.LeftOpenIntervalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code leftOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void exitLeftOpenInterval(DrawscriptParser.LeftOpenIntervalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code rightOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void enterRightOpenInterval(DrawscriptParser.RightOpenIntervalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code rightOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 */
+	void exitRightOpenInterval(DrawscriptParser.RightOpenIntervalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DrawscriptParser#reference}.
 	 * @param ctx the parse tree

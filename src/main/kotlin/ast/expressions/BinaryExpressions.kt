@@ -33,6 +33,10 @@ enum class BinaryOperator(private val symbol: String, val type: BinaryOperatorTy
 
     val isRelational: Boolean = type == BinaryOperatorType.RELATIONAL
 
+    companion object {
+        fun parse(symbol: String): BinaryOperator = values().first { it.symbol == symbol }
+    }
+
     fun applySemantically(left: Expression, right: Expression): Expression = when (type) {
         BinaryOperatorType.ARITHMETIC ->
             if (left.referencesVariables() || right.referencesVariables()) BinaryExpression(left, this, right)

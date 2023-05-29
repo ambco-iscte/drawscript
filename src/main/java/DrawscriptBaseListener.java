@@ -52,6 +52,30 @@ public class DrawscriptBaseListener implements DrawscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDimension(DrawscriptParser.DimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDimension(DrawscriptParser.DimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBackground(DrawscriptParser.BackgroundContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBackground(DrawscriptParser.BackgroundContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDefinition(DrawscriptParser.DefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -208,18 +232,6 @@ public class DrawscriptBaseListener implements DrawscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinaryExpression(DrawscriptParser.BinaryExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinaryExpression(DrawscriptParser.BinaryExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPointExpression(DrawscriptParser.PointExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -263,6 +275,66 @@ public class DrawscriptBaseListener implements DrawscriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitColourExpression(DrawscriptParser.ColourExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEnclosedExpression(DrawscriptParser.EnclosedExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnclosedExpression(DrawscriptParser.EnclosedExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryExpressionAddSub(DrawscriptParser.BinaryExpressionAddSubContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryExpressionAddSub(DrawscriptParser.BinaryExpressionAddSubContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryExpressionMulDivMod(DrawscriptParser.BinaryExpressionMulDivModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryExpressionMulDivMod(DrawscriptParser.BinaryExpressionMulDivModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryExpressionPow(DrawscriptParser.BinaryExpressionPowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryExpressionPow(DrawscriptParser.BinaryExpressionPowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryExpressionRelational(DrawscriptParser.BinaryExpressionRelationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryExpressionRelational(DrawscriptParser.BinaryExpressionRelationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -328,13 +400,49 @@ public class DrawscriptBaseListener implements DrawscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterval(DrawscriptParser.IntervalContext ctx) { }
+	@Override public void enterClosedInterval(DrawscriptParser.ClosedIntervalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterval(DrawscriptParser.IntervalContext ctx) { }
+	@Override public void exitClosedInterval(DrawscriptParser.ClosedIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOpenInterval(DrawscriptParser.OpenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpenInterval(DrawscriptParser.OpenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLeftOpenInterval(DrawscriptParser.LeftOpenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLeftOpenInterval(DrawscriptParser.LeftOpenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRightOpenInterval(DrawscriptParser.RightOpenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRightOpenInterval(DrawscriptParser.RightOpenIntervalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

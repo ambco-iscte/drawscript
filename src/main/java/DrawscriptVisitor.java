@@ -28,6 +28,18 @@ public interface DrawscriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameters(DrawscriptParser.ParametersContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DrawscriptParser#dimension}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDimension(DrawscriptParser.DimensionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DrawscriptParser#background}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBackground(DrawscriptParser.BackgroundContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DrawscriptParser#definition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -117,13 +129,6 @@ public interface DrawscriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIntervalExpression(DrawscriptParser.IntervalExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code binaryExpression}
-	 * labeled alternative in {@link DrawscriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinaryExpression(DrawscriptParser.BinaryExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code pointExpression}
 	 * labeled alternative in {@link DrawscriptParser#expression}.
 	 * @param ctx the parse tree
@@ -151,6 +156,41 @@ public interface DrawscriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitColourExpression(DrawscriptParser.ColourExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code enclosedExpression}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnclosedExpression(DrawscriptParser.EnclosedExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code binaryExpressionAddSub}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryExpressionAddSub(DrawscriptParser.BinaryExpressionAddSubContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code binaryExpressionMulDivMod}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryExpressionMulDivMod(DrawscriptParser.BinaryExpressionMulDivModContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code binaryExpressionPow}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryExpressionPow(DrawscriptParser.BinaryExpressionPowContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code binaryExpressionRelational}
+	 * labeled alternative in {@link DrawscriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryExpressionRelational(DrawscriptParser.BinaryExpressionRelationalContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code booleanExpression}
 	 * labeled alternative in {@link DrawscriptParser#expression}.
@@ -183,11 +223,33 @@ public interface DrawscriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitColour(DrawscriptParser.ColourContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DrawscriptParser#interval}.
+	 * Visit a parse tree produced by the {@code closedInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterval(DrawscriptParser.IntervalContext ctx);
+	T visitClosedInterval(DrawscriptParser.ClosedIntervalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code openInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpenInterval(DrawscriptParser.OpenIntervalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code leftOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLeftOpenInterval(DrawscriptParser.LeftOpenIntervalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code rightOpenInterval}
+	 * labeled alternative in {@link DrawscriptParser#interval}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRightOpenInterval(DrawscriptParser.RightOpenIntervalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DrawscriptParser#reference}.
 	 * @param ctx the parse tree

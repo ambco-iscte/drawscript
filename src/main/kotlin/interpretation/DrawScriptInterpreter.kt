@@ -1,23 +1,21 @@
 package interpretation
 
-import DrawscriptLexer
-import DrawscriptParser
 import ast.Script
 import ast.expressions.*
 import java.lang.RuntimeException
 import ast.expressions.Number
 import ast.instructions.*
-import org.antlr.v4.runtime.CharStreams
-import org.antlr.v4.runtime.CommonTokenStream
+import parsing.ASTProjector
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.FlowLayout
 import java.awt.Graphics
 import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.WindowConstants
 
 fun main() {
-    DrawScriptInterpreter.read("example.txt").run()
+    DrawScriptInterpreter.read("example-circles.txt").run()
 }
 
 class DrawScriptInterpreter(private val script: Script) {
@@ -31,12 +29,7 @@ class DrawScriptInterpreter(private val script: Script) {
     }
 
     companion object {
-        fun read(file: String): DrawScriptInterpreter = TODO()
-        /*
-            DrawScriptInterpreter(
-            DrawscriptParser(CommonTokenStream(DrawscriptLexer(CharStreams.fromFileName(file)))).script().toAbstract()
-        )
-        */
+        fun read(file: String): DrawScriptInterpreter = DrawScriptInterpreter(ASTProjector(file).project())
     }
 
     // Program memory
@@ -73,13 +66,13 @@ class DrawScriptInterpreter(private val script: Script) {
     fun run() {
         // Initialize Swing frame
         val frame: JFrame = JFrame("DrawScript")
-        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.isResizable = false
 
         // Set window dimension
         val dim = process(script.dimension) as Point
         val width = (process(dim.x) as Number).value
         val height = (process(dim.y) as Number).value
-        frame.size = Dimension(width, height)
 
         // Set window background colour
         val bg = process(script.backgroundColour) as Colour
@@ -89,9 +82,12 @@ class DrawScriptInterpreter(private val script: Script) {
         frame.background = Color(r, g, b)
 
         val window = DrawWindow()
+        window.preferredSize = Dimension(width, height)
+        window.layout = FlowLayout()
         frame.add(window)
         window.repaint()
 
+        frame.pack()
         frame.isVisible = true
     }
 
@@ -111,7 +107,9 @@ class DrawScriptInterpreter(private val script: Script) {
             while (!blocks.isEmpty()) {
                 val block = blocks.top() // Get the current sequence
                 while (block!!.hasNext()) { // If the sequence iterator has not yet finished
-                    when (val instruction = block.current()) { // Get the current instruction in the current block
+                    val instruction = block.current()
+                    //println("Executing instruction: $instruction")
+                    when (instruction) { // Get the current instruction in the current block
                         is Branch -> { // If-Else instruction
                             block.next()
                             if (process(instruction.expr) == Bool(true)) { // If the guard is True, Then should run
@@ -141,14 +139,17 @@ class DrawScriptInterpreter(private val script: Script) {
 
                             // Initialise iterator variable if necessary
                             if (!memory.containsKey(instruction.iterator.identifier))
-                                memory[instruction.iterator.identifier] = start
+                                memory[instruction.iterator.identifier] = Number(s)
 
                             val it = process(instruction.iterator) as Number
                             if (it.value in s..e) {
                                 val increment: Instruction = Increment(instruction.iterator.identifier)
                                 blocks.push(LoopBody(instruction.body + listOf(increment)))
                                 break // Go back to the top of the stack
-                            } else block.next() // Otherwise, the loop is done and we can move on
+                            } else {
+                                memory[instruction.iterator.identifier] = Number(s)
+                                block.next() // Otherwise, the loop is done and we can move on
+                            }
                         }
                         is Increment -> {
                             memory[instruction.identifier] =
@@ -174,13 +175,18 @@ class DrawScriptInterpreter(private val script: Script) {
                                     block.next()
                                 }
                                 is Rectangle -> {
+                                    val w = (process(instruction.width) as Number).value
+                                    val h = (process(instruction.height) as Number).value
+
+                                    //println("Drawing ${w}x$h rectangle at top left ($x1,$y1)")
+
                                     // Draw rectangle outlines
                                     g!!.color = lineColour
-                                    g.drawRect(x1, y1, instruction.width, instruction.height)
+                                    g.drawRect(x1, y1, w, h)
 
                                     // Draw rectangle fill
                                     g.color = fillColour
-                                    g.fillRect(x1 + 1, y1 + 1, instruction.width - 1, instruction.height - 1)
+                                    g.fillRect(x1 + 1, y1 + 1, w - 1, h - 1)
 
                                     block.next()
                                 }
@@ -188,8 +194,8 @@ class DrawScriptInterpreter(private val script: Script) {
                                     val cx = (process(instruction.center.x) as Number).value
                                     val cy = (process(instruction.center.y) as Number).value
 
-                                    val w = instruction.width
-                                    val h = instruction.height
+                                    val w = (process(instruction.width) as Number).value
+                                    val h = (process(instruction.height) as Number).value
 
                                     val topLeftX = cx - w / 2
                                     val topLeftY = cy - h / 2
@@ -222,16 +228,18 @@ class DrawScriptInterpreter(private val script: Script) {
                             }
                         }
                         is SetLineColour -> {
-                            val red = (process(instruction.colour.red) as Number).value
-                            val green = (process(instruction.colour.red) as Number).value
-                            val blue = (process(instruction.colour.red) as Number).value
+                            val colour = process(instruction.colour) as Colour
+                            val red = (process(colour.red) as Number).value
+                            val green = (process(colour.green) as Number).value
+                            val blue = (process(colour.blue) as Number).value
                             lineColour = Color(red, green, blue)
                             block.next()
                         }
                         is SetFillColour -> {
-                            val red = (process(instruction.colour.red) as Number).value
-                            val green = (process(instruction.colour.red) as Number).value
-                            val blue = (process(instruction.colour.red) as Number).value
+                            val colour = process(instruction.colour) as Colour
+                            val red = (process(colour.red) as Number).value
+                            val green = (process(colour.green) as Number).value
+                            val blue = (process(colour.blue) as Number).value
                             fillColour = Color(red, green, blue)
                             block.next()
                         }

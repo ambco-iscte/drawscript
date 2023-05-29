@@ -1,0 +1,22 @@
+N: 8
+SIDE: 40
+MARGIN: 5
+BLACK: |0|
+WHITE: |255|
+GRAY: |128|
+---
+dimension: (N * SIDE + MARGIN * 2,N * SIDE + MARGIN * 2)
+background: GRAY
+---
+setlinecolor BLACK
+for l in [0, N[ {
+  for c in [0, N[ {
+    if ((l + c) % 2 == 0) {
+      setfillcolor WHITE
+    } else {
+      setfillcolor BLACK
+    }
+    square (c * SIDE + MARGIN,l * SIDE + MARGIN), SIDE
+  }
+}
+setlinecolor |0|0|255|

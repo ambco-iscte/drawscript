@@ -1,4 +1,4 @@
-# DrawScript
+![](logo.png)
 
 ## What is this?
 **Drawscript** is a simple scripting library that allows for the generation of basic geometric drawings
@@ -20,13 +20,12 @@ course as part of elective coursework for the [Bachelor's in Computer Engineerin
   - [x] Interval bounds must be numeric
     - [x] Bounds must be in ascending order
   - [x] Binary expressions follow operand-operator context-sensitive restrictions (e.g. can only add together numbers, cannot add a number to an interval, etc.)
+  - [x] Set-colour instructions must take values of type Colour
   - [ ] Variables can only be referenced in the scope of their definition (inside declaring loop)
-- [ ] **Parsing**
-- [ ] **Interpretation**
-  - [ ] Visualisation window instantiated correctly
-  - [ ] Figures drawn correctly
-  - [ ] **Runtime Validation**
-    - [ ] Variable changes cannot violate semantic restrictions
+- [x] **Parsing**
+- [x] **Interpretation**
+  - [x] Visualisation window instantiated correctly
+  - [x] Figures drawn correctly
 
 ## Examples
 ### Generating a simple grid pattern
@@ -38,13 +37,13 @@ BLACK: |0|
 WHITE: |255|
 GRAY: |128|
 ---
-dimension: (2,3)
+dimension: (N * SIDE + MARGIN * 2,N * SIDE + MARGIN * 2)
 background: GRAY
 ---
 setlinecolor BLACK
 for l in [0, N[ {
   for c in [0, N[ {
-    if (l + c % 2 == 0) {
+    if ((l + c) % 2 == 0) {
       setfillcolor WHITE
     } else {
       setfillcolor BLACK

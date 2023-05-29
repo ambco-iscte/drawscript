@@ -89,15 +89,33 @@ data class Script(
      * @param instruction The [Instruction] to validate.
      */
     private fun validate(instruction: Instruction): List<SemanticError> = when (instruction) {
-        is SetLineColour -> validate(instruction.colour)
-        is SetFillColour -> validate(instruction.colour)
+        is SetLineColour -> {
+            val errors = validate(instruction.colour).toMutableList()
+            if (errors.isEmpty()) {
+                val type = simplifySemantically(instruction.colour).getType()
+                if (type != ExpressionType.COLOUR)
+                    errors.add(InvalidReferenceType(listOf(ExpressionType.COLOUR), type, instruction.colour))
+            }
+            errors
+        }
+        is SetFillColour -> {
+            val errors = validate(instruction.colour).toMutableList()
+            if (errors.isEmpty()) {
+                val type = simplifySemantically(instruction.colour).getType()
+                if (type != ExpressionType.COLOUR)
+                    errors.add(InvalidReferenceType(listOf(ExpressionType.COLOUR), type, instruction.colour))
+            }
+            errors
+        }
         is Branch -> {
             val errors = mutableListOf<SemanticError>()
             errors.addAll(validate(instruction.expr))
-            if (instruction.expr.getType() != ExpressionType.BOOLEAN)
-                errors.add(InvalidReferenceType(listOf(ExpressionType.BOOLEAN), instruction.expr.getType(), instruction.expr))
-            instruction.body.forEach { errors.addAll(validate(it)) }
-            instruction.alternative.forEach { errors.addAll(validate(it)) }
+            if (errors.isEmpty()) {
+                if (instruction.expr.getType() != ExpressionType.BOOLEAN)
+                    errors.add(InvalidReferenceType(listOf(ExpressionType.BOOLEAN), instruction.expr.getType(), instruction.expr))
+                instruction.body.forEach { errors.addAll(validate(it)) }
+                instruction.alternative.forEach { errors.addAll(validate(it)) }
+            }
             errors
         }
         is Iteration -> {
@@ -105,6 +123,10 @@ data class Script(
             instruction.body.forEach { errors.addAll(validate(it)) }
             errors
         }
+        is Square -> validateAllIntegers(instruction.length)
+        is Rectangle -> validateAllIntegers(instruction.width, instruction.height)
+        is Circle -> validateAllIntegers(instruction.radius)
+        is Ellipse -> validateAllIntegers(instruction.width, instruction.height)
         else -> listOf()
     }
 
