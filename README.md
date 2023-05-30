@@ -10,7 +10,7 @@ course as part of elective coursework for the [Bachelor's in Computer Engineerin
 
 <br>
 
-## Features
+# Features
 - [x] **Manual creation of Abstract Syntax Tree**
 - [ ] **Semantic Validation**
   - [x] Window dimension must be a (x,y) point
@@ -28,6 +28,8 @@ course as part of elective coursework for the [Bachelor's in Computer Engineerin
 - [x] **Interpretation**
   - [x] Visualisation window instantiated correctly
   - [x] Figures drawn correctly
+
+<br>
 
 # Scripting
 A **Draw**Script script is composed by three sections:
