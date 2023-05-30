@@ -10,12 +10,13 @@ import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.Graphics
+import javax.swing.ImageIcon
 import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.WindowConstants
 
 fun main() {
-    DrawScriptInterpreter.read("example-circles.txt").run()
+    DrawScriptInterpreter.read("example.txt").run()
 }
 
 class DrawScriptInterpreter(private val script: Script) {
@@ -65,9 +66,11 @@ class DrawScriptInterpreter(private val script: Script) {
     }
     fun run() {
         // Initialize Swing frame
-        val frame: JFrame = JFrame("DrawScript")
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        frame.isResizable = false
+        val frame: JFrame = JFrame("DrawScript").apply {
+            defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            isResizable = false
+            iconImage = ImageIcon("resources/icon.png").image
+        }
 
         // Set window dimension
         val dim = process(script.dimension) as Point

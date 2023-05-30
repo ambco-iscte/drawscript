@@ -1,4 +1,4 @@
-![](logo.png)
+<p align="center"><img src="resources/header.png"></p>
 
 ## What is this?
 **Drawscript** is a simple scripting library that allows for the generation of basic geometric drawings
@@ -29,6 +29,8 @@ course as part of elective coursework for the [Bachelor's in Computer Engineerin
 
 ## Examples
 ### Generating a simple grid pattern
+<p align="center"><img src="resources/example.png"></p>
+
 ```
 N: 8
 SIDE: 40
@@ -57,7 +59,7 @@ square (MARGIN,MARGIN), N * SIDE
 
 ## Class Diagram
 As per the original project specifications, the figure below presents the class structure of the project.
-![](classdiagram.png)
+![](resources/classdiagram.png)
 
 ## Credit
 Full credit for the basic specification of the library's requirements goes to Professor
