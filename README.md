@@ -118,6 +118,8 @@ setlinecolor |0|0|255|
 square (MARGIN,MARGIN), N * SIDE
 ```
 
+<br>
+
 # Class Diagram
 The UML class diagram for this project can be found [here](resources/classdiagram.png).
 
