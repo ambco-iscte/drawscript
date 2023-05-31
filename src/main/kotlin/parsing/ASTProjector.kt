@@ -1,22 +1,47 @@
 package parsing
 
-import DrawscriptLexer
-import DrawscriptParser
+import antlr.DrawscriptLexer
+import antlr.DrawscriptParser
 import ast.Script
 import ast.expressions.*
-import ast.expressions.Number
+import ast.expressions.literal.*
+import ast.expressions.literal.Number
+import ast.expressions.binary.*
 import ast.instructions.*
+import ast.instructions.figure.*
+import ast.instructions.colour.*
+import ast.instructions.control.*
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
+import java.io.File
 
-internal data class DrawScriptParseException(override val message: String): Exception(message)
-
-internal class ASTProjector(private val file: String) {
-
+/**
+ * Helper class that projects a DrawScript-formatted String into a [Script].
+ * @param script The DrawString-formatted script.
+ */
+internal class ASTProjector(private val script: String) {
     private val definedConstants: MutableList<String> = mutableListOf()
 
+    companion object {
+        /**
+         * Reads a DrawScript-formatted file and returns an [ASTProjector] for that script.
+         */
+        fun read(file: String): ASTProjector = ASTProjector(File(file).readText())
+    }
+
+    /**
+     * Constructs a [Script] from the string passed when constructing this [ASTProjector] instance.
+     */
     fun project(): Script =
-        DrawscriptParser(CommonTokenStream(DrawscriptLexer(CharStreams.fromFileName(file)))).script().toAbstract()
+        DrawscriptParser(
+            CommonTokenStream(
+                DrawscriptLexer(
+                    CharStreams.fromString(
+                        script
+                    )
+                )
+            )
+        ).script().toAbstract()
 
     private fun DrawscriptParser.ScriptContext.toAbstract(): Script {
         val constants = constants().toMap()

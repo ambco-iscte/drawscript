@@ -1,9 +1,15 @@
 package ast
 
 import ast.expressions.*
-import ast.expressions.Number
-import ast.instructions.*
+import ast.expressions.literal.*
+import ast.expressions.binary.*
+import ast.instructions.Instruction
+import ast.instructions.figure.*
+import ast.instructions.colour.*
+import ast.instructions.control.*
+import ast.expressions.literal.Number
 import ast.validation.*
+import ast.expressions.Expression.ExpressionType as ExpressionType
 
 /**
  * Abstract DrawScript script.
@@ -64,6 +70,7 @@ data class Script(
             is Point -> ExpressionType.POINT
             is Interval -> ExpressionType.INTERVAL
             is BinaryExpression -> if (operator.isArithmetic) ExpressionType.INTEGER else ExpressionType.BOOLEAN
+            else -> throw IllegalArgumentException("Invalid expression type: ${this::class.simpleName}")
         }
     }
 
@@ -109,10 +116,10 @@ data class Script(
         }
         is Branch -> {
             val errors = mutableListOf<SemanticError>()
-            errors.addAll(validate(instruction.expr))
+            errors.addAll(validate(instruction.guard))
             if (errors.isEmpty()) {
-                if (instruction.expr.getType() != ExpressionType.BOOLEAN)
-                    errors.add(InvalidReferenceType(listOf(ExpressionType.BOOLEAN), instruction.expr.getType(), instruction.expr))
+                if (instruction.guard.getType() != ExpressionType.BOOLEAN)
+                    errors.add(InvalidReferenceType(listOf(ExpressionType.BOOLEAN), instruction.guard.getType(), instruction.guard))
                 instruction.body.forEach { errors.addAll(validate(it)) }
                 instruction.alternative.forEach { errors.addAll(validate(it)) }
             }

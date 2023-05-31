@@ -1,0 +1,19 @@
+/*
+ * All Margins and sizes are custom for the icon.png file.
+ * You may need to modify it and find what works best for your case.
+ */
+.library-name a {
+    position: relative;
+    margin-left: 55px;
+}
+
+.library-name a::before {
+    content: '';
+    background: url("../images/icon.png") center no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: -18px;
+    left: -55px;
+}

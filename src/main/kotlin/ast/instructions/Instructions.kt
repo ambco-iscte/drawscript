@@ -1,7 +1,11 @@
 package ast.instructions
 
-import ast.expressions.Expression
+import ast.Script
+import ast.instructions.control.ControlStructure
 
+/**
+ * Generic [Script] instruction.
+ */
 interface Instruction {
     var parent: Instruction?
 }

@@ -91,9 +91,10 @@ Currently, **Draw**Script supports the following types of instructions:
 <br>
 
 # Examples
-## Generating a simple grid pattern
-<p align="center"><img src="resources/example.png"></p>
+Check out the full documentation [here](https://ambco-iscte.github.io/drawscript/)!
 
+## Generating a simple grid pattern
+The following DrawScript code generates a simple black-and-white grid pattern.
 ```
 N: 8
 SIDE: 40
@@ -122,8 +123,18 @@ square (MARGIN,MARGIN), N * SIDE
 
 <br>
 
+# Using the Editor
+DrawScript provides a built-in editor that allows for running scripts in real-time in a simplistic GUI that displays
+the results of the script and any errors thrown during the parsing or interpretation steps.
+
+The following is an example of running the example code provided above in the editor.
+
+![DrawScript Editor Example](resources/editor-example.png)
+
+<br>
+
 # Class Diagram
-The UML class diagram for this project can be found [here](resources/classdiagram.png).
+The UML class diagram for this project can be found [here](UML%20Class%20Diagram.png).
 
 <br>
 
