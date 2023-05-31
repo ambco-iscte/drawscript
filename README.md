@@ -117,8 +117,6 @@ for l in [0, N[ {
     square (c * SIDE + MARGIN,l * SIDE + MARGIN), SIDE
   }
 }
-setlinecolor |0|0|255|
-square (MARGIN,MARGIN), N * SIDE
 ```
 
 <br>
